@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Playground</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f7ff;
+    color: #263451;
+}
+
+header {
+    background: #6558d3;
+    color: white;
+    padding: 22px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+header span {
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.welcome {
+    background: linear-gradient(120deg, #7568e8, #9b8cf5);
+    color: white;
+    padding: 35px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+}
+
+.welcome h1 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.welcome p {
+    line-height: 1.6;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px #dce3f2;
+}
+
+.stat h2 {
+    color: #6558d3;
+    margin-bottom: 7px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.menu button {
+    background: white;
+    border: 2px solid #e1e5f5;
+    border-radius: 12px;
+    padding: 15px 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #4c4a77;
+}
+
+.menu button.active,
+.menu button:hover {
+    background: #6558d3;
+    color: white;
+    border-color: #6558d3;
+}
+
+.section {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 3px 12px #dce3f2;
+    margin-bottom: 25px;
+}
+
+.section h2 {
+    margin-bottom: 15px;
+    color: #5145b8;
+}
+
+select, input {
+    padding: 12px;
+    border: 1px solid #ccd3e5;
+    border-radius: 9px;
+    font-size: 15px;
+    margin: 8px 0;
+    width: 100%;
+    max-width: 350px;
+}
+
+.primary {
+    background: #6558d3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 7px 4px 7px 0;
+}
+
+.primary:hover {
+    background: #4b3eb2;
+}
+
+.word-card {
+    background: #f4f2ff;
+    border-radius: 15px;
+    text-align: center;
+    padding: 25px;
+    margin-top: 15px;
+}
+
+.emoji {
+    font-size: 65px;
+    margin: 10px;
+}
+
+.word-card h3 {
+    font-size: 27px;
+    color: #6558d3;
+    margin: 8px;
+}
+
+.word-card p {
+    margin: 8px;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    margin: 10px auto;
+    padding: 13px;
+    border: 2px solid #dedaf8;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.option:hover {
+    background: #f0edff;
+}
+
+.result {
+    margin-top: 15px;
+    font-weight: bold;
+    min-height: 24px;
+}
+
+.progress-bg {
+    height: 15px;
+    background: #e8e8f2;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #62c69a;
+    transition: 0.3s;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+@media(max-width:650px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+    .menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .welcome h1 {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎮 English Playground</div>
+    <span>Learn English - Play - Grow!</span>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h1>Hello, Little Learner! 🌈</h1>
+        <p>
+            Welcome to English Playground!
+            Learn new words, build sentences and
+            improve your English every day.
+        </p>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <h2 id="score">0</h2>
+            <p>Total Points ⭐</p>
+        </div>
+        <div class="stat">
+            <h2 id="learned">0</h2>
+            <p>Words Practiced 📚</p>
+        </div>
+        <div class="stat">
+            <h2 id="lessons">0</h2>
+            <p>Activities Completed 🎯</p>
+        </div>
+    </div>
+
+    <div class="menu">
+        <button class="active" onclick="showTab('vocabulary',this)">
+            📖 Vocabulary
+        </button>
+        <button onclick="showTab('sentence',this)">
+            🔤 Build Sentences
+        </button>
+        <button onclick="showTab('writing',this)">
+            ✏️ Word Writing
+        </button>
+        <button onclick="showTab('progress',this)">
+            📊 My Progress
+        </button>
+    </div>
+
+    <!-- VOCABULARY -->
+    <div id="vocabulary" class="section">
+        <h2>📖 Let's Learn Vocabulary!</h2>
+        <p>Choose a topic to learn new English words.</p>
+
+        <select id="topic" onchange="loadWord()">
+            <option value="animals">Animals 🐶</option>
+            <option value="food">Food 🍎</option>
+            <option value="school">School 🎒</option>
+        </select>
+
+        <div class="word-card">
+            <div class="emoji" id="emoji">🐱</div>
+            <h3 id="english">Cat</h3>
+            <p id="vietnamese">Con mèo</p>
+            <button class="primary" onclick="speakWord()">
+                🔊 Listen
+            </button>
+            <button class="primary" onclick="nextWord()">
+                Next Word ➜
+            </button>
+        </div>
+    </div>
+
+    <!-- SENTENCE BUILDING -->
+    <div id="sentence" class="section hidden">
+        <h2>🔤 Build Your Sentence!</h2>
+        <p>Choose the correct sentence.</p>
+
+        <h3 id="question" style="margin:20px 0">
+            Tôi thích ăn táo.
+        </h3>
+
+        <div id="options"></div>
+        <div class="result" id="sentenceResult"></div>
+        <button class="primary" onclick="nextSentence()">
+            Next Question ➜
+        </button>
+    </div>
+
+    <!-- WRITING -->
+    <div id="writing" class="section hidden">
+        <h2>✏️ Practice Your Spelling!</h2>
+        <p>Look at the picture and write its English name.</p>
+
+        <div class="word-card">
+            <div class="emoji" id="writingEmoji">🍎</div>
+            <p id="writingHint">Quả táo</p>
+            <input id="answer" type="text"
+                placeholder="Write your answer here..."
+                onkeydown="if(event.key==='Enter') checkWriting()">
+
+            <br>
+            <button class="primary" onclick="checkWriting()">
+                Check Answer
+            </button>
+            <button class="primary" onclick="nextWriting()">
+                Next Word ➜
+            </button>
+
+            <div class="result" id="writingResult"></div>
+        </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div id="progress" class="section hidden">
+        <h2>📊 My Learning Progress</h2>
+        <p>Keep learning every day!</p>
+
+        <h3 id="progressText">0 points earned</h3>
+        <div class="progress-bg">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <p id="progressMessage">
+            Start learning to track your progress!
+        </p>
+        <button class="primary" onclick="resetProgress()">
+            Reset Progress
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 English Playground | Learn English with Fun! 💜
+</footer>
+
+<script>
+
+// DATA: VOCABULARY
+const vocabulary = {
+    animals: [
+        {word:"Cat",meaning:"Con mèo",emoji:"🐱"},
+        {word:"Dog",meaning:"Con chó",emoji:"🐶"},
+        {word:"Elephant",meaning:"Con voi",emoji:"🐘"},
+        {word:"Rabbit",meaning:"Con thỏ",emoji:"🐰"},
+        {word:"Lion",meaning:"Sư tử",emoji:"🦁"}
+    ],
+    food: [
+        {word:"Apple",meaning:"Quả táo",emoji:"🍎"},
+        {word:"Banana",meaning:"Quả chuối",emoji:"🍌"},
+        {word:"Milk",meaning:"Sữa",emoji:"🥛"},
+        {word:"Bread",meaning:"Bánh mì",emoji:"🍞"},
+        {word:"Pizza",meaning:"Bánh pizza",emoji:"🍕"}
+    ],
+    school: [
+        {word:"Book",meaning:"Quyển sách",emoji:"📚"},
+        {word:"Pencil",meaning:"Bút chì",emoji:"✏️"},
+        {word:"Ruler",meaning:"Thước kẻ",emoji:"📏"},
+        {word:"Schoolbag",meaning:"Cặp sách",emoji:"🎒"},
+        {word:"Teacher",meaning:"Giáo viên",emoji:"👩‍🏫"}
+    ]
+};
+
+let wordIndex = 0;
+let writingIndex = 0;
+let sentenceIndex = 0;
+
+let data = JSON.parse(localStorage.getItem("englishProgress")) || {
+    score: 0,
+    learned: 0,
+    lessons: 0,
+    completed: []
+};
+
+function save() {
+    localStorage.setItem("englishProgress", JSON.stringify(data));
+    updateStats();
+}
+
+function updateStats() {
+    document.getElementById("score").innerText = data.score;
+    document.getElementById("learned").innerText = data.learned;
+    document.getElementById("lessons").innerText = data.lessons;
+
+    document.getElementById("progressText").innerText =
+        data.score + " points earned";
+
+    let percent = Math.min(data.score / 100 * 100, 100);
+    document.getElementById("progressFill").style.width =
+        percent + "%";
+
+    document.getElementById("progressMessage").innerText =
+        data.score >= 100 ? "Amazing! You are an English Star! 🌟"
+        : "Keep practicing! You can do it! 💪";
+}
+
+function showTab(id, button) {
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.add("hidden");
+    });
+
+    document.getElementById(id).classList.remove("hidden");
+
+    document.querySelectorAll(".menu button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+}
+
+// VOCABULARY
+function loadWord() {
+    let topic = document.getElementById("topic").value;
+    let item = vocabulary[topic][wordIndex % vocabulary[topic].length];
+
+    document.getElementById("emoji").innerText = item.emoji;
+    document.getElementById("english").innerText = item.word;
+    document.getElementById("vietnamese").innerText = item.meaning;
+}
+
+function nextWord() {
+    wordIndex++;
+    loadWord();
+
+    let key = document.getElementById("topic").value + "-" + wordIndex;
+    if (!data.completed.includes(key)) {
+        data.completed.push(key);
+        data.learned++;
+        save();
+    }
+}
+
+function speakWord() {
+    let word = document.getElementById("english").innerText;
+    let speech = new SpeechSynthesisUtterance(word);
+    speech.lang = "en-US";
+    speech.rate = 0.8;
+    speechSynthesis.speak(speech);
+}
+
+// SENTENCE BUILDING
+const sentences = [
+    {
+        question:"Tôi thích ăn táo.",
+        answers:["I like eating apples.","I apples like eating.","Eating I like apple."],
+        correct:0
+    },
+    {
+        question:"Cô ấy là giáo viên.",
+        answers:["She teacher is.","She is a teacher.","Teacher she a is."],
+        correct:1
+    },
+    {
+        question:"Tôi có một con chó.",
+        answers:["I have a dog.","I a dog have.","Dog I have a."],
+        correct:0
+    },
+    {
+        question:"Đây là quyển sách của tôi.",
+        answers:["My book this is.","This is my book.","This my is book."],
+        correct:1
+    }
+];
+
+function loadSentence() {
+    let item = sentences[sentenceIndex % sentences.length];
+
+    document.getElementById("question").innerText = item.question;
+    document.getElementById("sentenceResult").innerText = "";
+
+    document.getElementById("options").innerHTML = "";
+
+    item.answers.forEach((answer,index) => {
+        let btn = document.createElement("button");
+        btn.className = "option";
+        btn.innerText = answer;
+        btn.onclick = () => checkSentence(index);
+        document.getElementById("options").appendChild(btn);
+    });
+}
+
+function checkSentence(index) {
+    let item = sentences[sentenceIndex % sentences.length];
+    let result = document.getElementById("sentenceResult");
+
+    if(index === item.correct) {
+        result.innerText = "Correct! Excellent job! 🎉";
+        result.style.color = "green";
+        data.score += 10;
+        data.lessons++;
+        save();
+    } else {
+        result.innerText = "Not quite! Try another question. 💪";
+        result.style.color = "red";
+    }
+}
+
+function nextSentence() {
+    sentenceIndex++;
+    loadSentence();
+}
+
+// WORD WRITING
+const writingWords = [
+    {word:"Apple",meaning:"Quả táo",emoji:"🍎"},
+    {word:"Dog",meaning:"Con chó",emoji:"🐶"},
+    {word:"Book",meaning:"Quyển sách",emoji:"📚"},
+    {word:"Banana",meaning:"Quả chuối",emoji:"🍌"},
+    {word:"Cat",meaning:"Con mèo",emoji:"🐱"}
+];
+
+function loadWriting() {
+    let item = writingWords[writingIndex % writingWords.length];
+
+    document.getElementById("writingEmoji").innerText = item.emoji;
+    document.getElementById("writingHint").innerText = item.meaning;
+    document.getElementById("answer").value = "";
+    document.getElementById("writingResult").innerText = "";
+}
+
+function checkWriting() {
+    let answer = document.getElementById("answer").value.trim().toLowerCase();
+    let item = writingWords[writingIndex % writingWords.length];
+    let result = document.getElementById("writingResult");
+
+    if(answer === item.word.toLowerCase()) {
+        result.innerText = "Perfect! Your spelling is correct! 🌟";
+        result.style.color = "green";
+        data.score += 10;
+        data.lessons++;
+        save();
+    } else {
+        result.innerText = "Try again! Check your spelling. 😊";
+        result.style.color = "red";
+    }
+}
+
+function nextWriting() {
+    writingIndex++;
+    loadWriting();
+}
+
+// RESET
+function resetProgress() {
+    if(confirm("Do you want to reset all your progress?")) {
+        data = {
+            score: 0,
+            learned: 0,
+            lessons: 0,
+            completed: []
+        };
+        save();
+    }
+}
+
+// INITIALIZE
+loadWord();
+loadSentence();
+loadWriting();
+updateStats();
+
+</script>
+</body>
+</html>
